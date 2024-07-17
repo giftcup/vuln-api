@@ -1,0 +1,190 @@
+# Django specific files
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+# Env files
+.env
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+bin/
+pyvenv.cfg
+
+# OS-specific files
+# Windows
+Thumbs.db
+ehthumbs.db
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Linux
+.*.swp
+.*.swo
+*~
+
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+staticfiles/
+media/
+local_settings.py
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.tmproj
+
+# PyCharm
+#  JetBrains specific template configuration
+.idea/
+*.iws
+*.iml
+*.ipr
+# Sonarlint plugin
+.idea/sonarlint/
+
+# Rider
+.idea/
+
+# Pycharm
+.idea/
+*.iml
+*.ipr
+*.iws
+*.pyo
+*.pyc
+
+# Code Blocks
+*.cbp
+*.layout
+
+# Mono and F#
+*.sln
+*.fsproj
+*.csproj
+
+# VS Code
+.vscode/
+
+# System specific
+.DS_Store
+Thumbs.db
+
+# Environments
+.env
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# pyenv
+.python-version
+
+# pytest
+.pytest_cache/
+.cache
+
+# mypy
+.mypy_cache/
+
+# coverage
+.coverage
+coverage.xml
+,coverage
+htmlcov/
+
+# virtualenv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# celery
+celerybeat-schedule
+celerybeat.pid
+
+# Sphinx documentation
+docs/_build/
+apidocs/
+
+# mkdocs documentation
+/site
+
+# PyBuilder
+target/
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# profiling data
+.prof
+
+# node
+node_modules/
+
+# Environments
+.env
