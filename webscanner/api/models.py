@@ -5,7 +5,7 @@ class Scan(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     target_url = models.TextField()
     start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    end_time = models.DateTimeField(null=True)
     scanner_ip = models.CharField(max_length=45)
 
 class Scan_Url(models.Model):
