@@ -23,7 +23,7 @@ class SecurityHeaderService:
                 scan_url=scan_url,
                 type='Missing Security Header',
                 description=SecurityHeaderService.SECURITY_HEADERS[missing_header],
-                severity='high',
+                severity='low',
                 proof_of_concept=f'Missing security header: {missing_header}'
             )
             vulnerability.save()

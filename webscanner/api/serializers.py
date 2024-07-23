@@ -85,7 +85,9 @@ class VulnerabilitySerializer(serializers.HyperlinkedModelSerializer):
 
     cvss = serializers.FloatField(allow_null=True)
     cve = serializers.CharField(allow_null=True)
+    recommendation = serializers.CharField(allow_null=True)
+    proof_of_concept = serializers.CharField(allow_null = True)
 
     class Meta:
         model = Vulnerability
-        fields = ['url', 'id', 'scan_url', 'type', 'description', 'severity', 'cvss', 'cve', 'proof_of_concept']
+        fields = ['url', 'id', 'scan_url', 'type', 'description', 'severity', 'recommendation', 'cvss', 'cve', 'proof_of_concept']

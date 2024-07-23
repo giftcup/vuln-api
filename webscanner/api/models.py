@@ -32,6 +32,7 @@ class Vulnerability(models.Model):
     type = models.CharField(max_length=50)
     description = models.TextField()
     severity = models.CharField(max_length=10, choices=[('low', 'Low'), ('medium', 'Medium'), ('high', 'High')])
+    recommendation = models.TextField(null=True)
     cvss = models.FloatField(null=True)
     cve = models.TextField(null=True)
-    proof_of_concept = models.TextField()
+    proof_of_concept = models.TextField(null=True)
