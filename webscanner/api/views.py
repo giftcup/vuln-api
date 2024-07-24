@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from .models import Scan, Scan_Url, Request, Response, Vulnerability
 from .serializers import UserSerializer, ScanSerializer, Scan_UrlSerializer, RequestSerializer, ResponseSerializer, VulnerabilitySerializer
-from .services import ScanService, SecurityHeaderService, XSSService
+from .services import ScanService, SecurityHeaderService, XSSService, SQLInjectionService
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -28,19 +28,25 @@ class ScanViewSet(viewsets.ModelViewSet):
         #Scan for vulnerabilities
         security_header_vulnerabilities = SecurityHeaderService.scan_for_vulnerabilities(scan)
         xss_vulnerabilities = XSSService.scan_for_vulnerabilities(scan)
+        sqli_vulnerabilities = SQLInjectionService.scan_for_vulnerabilities(scan)
 
-        vulnerabilities = security_header_vulnerabilities + xss_vulnerabilities
+        # vulnerabilities = security_header_vulnerabilities + xss_vulnerabilities + sqli_vulnerabilities
 
         # Serialize the created Scan and ScanURL instances
         scan_serializer = self.get_serializer(scan)
         scan_url_serializer = Scan_UrlSerializer(scan_url, context={'request': request})
-        vulnerability_serializer = VulnerabilitySerializer(vulnerabilities, many=True, context={'request': request})
+        # vulnerability_serializer = VulnerabilitySerializer(vulnerabilities, many=True, context={'request': request})
+        security_header_serializer = VulnerabilitySerializer(security_header_vulnerabilities, many=True, context={'request': request})
+        xss_serializer = VulnerabilitySerializer(xss_vulnerabilities, many=True, context={'request': request})
+        sqli_vulnerabilities = VulnerabilitySerializer(sqli_vulnerabilities, many=True, context={'request': request})
 
 
         return Res({
             'scan': scan_serializer.data,
             'scan_url': scan_url_serializer.data,
-            'vulnerabilities': vulnerability_serializer.data
+            'security_header_vulnerabilities': security_header_serializer.data,
+            'xss_vulnerabilities': xss_serializer.data,
+            'sqli_vulnerabilities': sqli_vulnerabilities.data
         }, status=status.HTTP_201_CREATED)
 
 class Scan_UrlViewSet(viewsets.ModelViewSet):

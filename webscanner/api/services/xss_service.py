@@ -86,8 +86,7 @@ class XSSService:
                         description=f'Detected potential XSS vulnerability. Cross-site scripting vulnerabilities allows attackers to inject malicious scripts into webpages viewed by other users. An XSS vulnerability can enable attackers to bypass access controls such as the same-origin policy',
                         severity='high',
                         proof_of_concept=f"Payload injected: {str(data)} \n Response: {str(response.text)}",
-                        recommendation=f"""
-                        - Ensure that all user inputs are properly validated on both the client-side and server-side.
+                        recommendation=f""" - Ensure that all user inputs are properly validated on both the client-side and server-side.
                         - Allow only expected and safe input values. For example, if a field expects an email, ensure the input matches the email format.
                         - Encode data before rendering it to the browser. This prevents the browser from interpreting the data as executable code. """
                     )
