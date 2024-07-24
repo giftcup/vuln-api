@@ -34,9 +34,6 @@ class SecurityHeaderService:
     @staticmethod
     def scan_for_vulnerabilities(scan):
         scan_urls = Scan_Url.objects.filter(scan=scan)
-        all_vulnerabilities = []
-        for scan_url in scan_urls:
-            vulnerabilities = SecurityHeaderService.check_missing_security_headers(scan_url)
-            all_vulnerabilities.extend(vulnerabilities)
-
+        all_vulnerabilities = SecurityHeaderService.check_missing_security_headers(scan_urls[0])
+        
         return all_vulnerabilities

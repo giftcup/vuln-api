@@ -2,87 +2,36 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Scan, Scan_Url, Request, Response, Vulnerability
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    scans = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name='scan-detail',
-        read_only=True
-    )
-
-    class Meta:
-        model = User
-        fields = ['url', 'id', 'username', 'email', 'password', 'scans']
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ['id', 'username', 'email', 'password', 'scans']
 
 
-class Scan_UrlSerializer(serializers.HyperlinkedModelSerializer):
-    scan = serializers.HyperlinkedRelatedField(
-        view_name='scan-detail',
-        read_only=True
-    )
-
-    requests = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name='request-detail',
-        read_only=True
-    )
-
-    vulnerabilities = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name='vulnerability-detail',
-        read_only=True
-    )
-
+class Scan_UrlSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scan_Url
-        fields = ['url', 'id', 'scan', 'scan_url', 'status_code', 'headers', 'html_content', 'requests', 'vulnerabilities']
+        fields = '__all__'
 
-class ScanSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HyperlinkedRelatedField(
-        view_name='user-detail',
-        read_only=True
-    )
-    scan_urls = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name='scan_url-detail',
-        read_only=True
-    )
+class ScanSerializer(serializers.ModelSerializer):
     target_url = serializers.URLField(write_only=True)
-
     end_time = serializers.DateTimeField(allow_null=True)
 
     class Meta:
         model = Scan
-        fields = ['url', 'id', 'start_time', 'end_time', 'scanner_ip', 'user', 'scan_urls', 'target_url']
+        fields = '__all__'
 
-class RequestSerializer(serializers.HyperlinkedModelSerializer):
-    scan_url = serializers.HyperlinkedRelatedField(
-        view_name='scan_url-detail',
-        read_only=True
-    )
-    response = serializers.HyperlinkedRelatedField(
-        view_name='response-detail',
-        read_only=True
-    )
-
+class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
-        fields = ['url', 'id', 'scan_url', 'method', 'payload', 'headers', 'response']
+        fields = '__all__'
 
-class ResponseSerializer(serializers.HyperlinkedModelSerializer):
-    request = serializers.HyperlinkedRelatedField(
-        view_name='request-detail',
-        read_only=True
-    )
+class ResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Response
-        fields = ['url', 'id', 'request', 'status_code', 'headers', 'content']
+        fields = '__all__'
 
-class VulnerabilitySerializer(serializers.HyperlinkedModelSerializer):
-    scan_url = serializers.HyperlinkedRelatedField(
-        view_name='scan_url-detail',
-        read_only=True
-    )
-
+class VulnerabilitySerializer(serializers.ModelSerializer):
     cvss = serializers.FloatField(allow_null=True)
     cve = serializers.CharField(allow_null=True)
     recommendation = serializers.CharField(allow_null=True)
@@ -90,4 +39,11 @@ class VulnerabilitySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Vulnerability
-        fields = ['url', 'id', 'scan_url', 'type', 'description', 'severity', 'recommendation', 'cvss', 'cve', 'proof_of_concept']
+        fields = '__all__'
+
+class Scan_UrlWithVulnerabilitiesSerializer(serializers.ModelSerializer):
+    vulnerabilities = VulnerabilitySerializer(many=True, read_only=True, source='vulnerability_set')
+
+    class Meta:
+        model = Scan_Url
+        fields = ['id', 'url', 'vulnerabilities']
